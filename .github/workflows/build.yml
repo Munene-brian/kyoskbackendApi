@@ -40,3 +40,10 @@ jobs:
 
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - if: ${{ github.ref == 'refs/heads/main' }}
+        name: Build and push Docker image for main
+        run: |
+
+          docker build -t ${{ vars.DOCKERHUB_USERNAME }}/kyoskbackend:latest .
+          docker push ${{ vars.DOCKERHUB_USERNAME }}/kyoskbackend:latest
