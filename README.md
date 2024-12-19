@@ -18,7 +18,7 @@ Before you begin, ensure the following tools are installed on your local machine
 
 1. Clone the repository:
    ```bash
-   git clone <https://github.com/Munene-brian/kyoskbackendApi.git>
+   git clone https://github.com/Munene-brian/kyoskbackendApi.git
    cd kyoskbackendApi
    ```
 
@@ -99,66 +99,27 @@ Before you begin, ensure the following tools are installed on your local machine
 
 ---
 
-## 3. CI/CD Pipeline with GitHub Actions
+## 3. CI/CD Pipeline with GitHub Actions worflow
 - The GitAction Pipeline are triggered on push to main and push the image to Dockerhub registry 
 ### Overview
 The CI/CD pipeline automates the process of building, testing, and deploying the application. The pipeline includes the following steps:
+## 1. Build Job
+ - Environment: Runs on ubuntu-latest.
+ - Steps:
+    Checkout Code: Pulls the latest code from the repository using actions/checkout@v4.
+    Set Up JDK 17: Configures Java Development Kit version 17 using actions/setup-java@v4.
+    Maven Build: Executes mvn -B -DskipTests clean package to compile and package the application while skipping tests.
 
-1. **Build and Test**:
-   - Runs on every pull request and push to the repository.
-   - Executes Maven commands to compile the code and run tests.
-
-2. **Docker Build**:
-   - Builds the Docker image for the Spring application.
-
-3. **Push Docker Image**:
-   - Optionally pushes the image to a container registry (e.g., Docker Hub or GitHub Container Registry).
-
-4. **Deploy to Minikube**:
-   - Deploys the application to Minikube using `kubectl` commands.
-
-### Example GitHub Actions Workflow
-
-```yaml
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
-
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-
-    - name: Build with Maven
-      run: mvn clean package
-
-    - name: Build Docker Image
-      run: docker build -t <image_name>:latest .
-
-    - name: Push Docker Image
-      env:
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: |
-        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-        docker tag spring-backend:latest $DOCKER_USERNAME/<image_name>:latest
-        docker push $DOCKER_USERNAME/<image_name>:latest
-
-
+## 2. Docker Job (Depends on Build Job)
+  - Environment: Runs on ubuntu-latest.
+  - Steps:
+     Checkout Code: Re-checks out the repository for Docker-related operations.
+     Set Up Docker Buildx: Configures advanced Docker build features using docker/setup-buildx-action@v3.
+     Login to Docker Hub: Authenticates to Docker Hub using a username and password from GitHub Secrets/Variables.
+     Build and Push Docker Image:
+     Builds a Docker image tagged as kyosk-spring-backend:latest.
+     Pushes the image to Docker Hub under the specified Docker Hub account.
+     This step runs only if the branch is main
 
 ---
 
@@ -172,5 +133,4 @@ jobs:
 
 
 
-![Screenshot 2024-12-19 060722](https://github.com/user-attachments/assets/c9bcd285-a402-4d30-b7af-216d98727b0d)
 
