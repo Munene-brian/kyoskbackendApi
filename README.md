@@ -83,6 +83,8 @@ Before you begin, ensure the following tools are installed on your local machine
    ```bash
    kubectl apply -f <spring_deployment_manifest>.yaml
    ```
+2. Check the pods
+   kubectl get pods   
 
 #### Access the Application
 
@@ -98,7 +100,7 @@ Before you begin, ensure the following tools are installed on your local machine
 ---
 
 ## 3. CI/CD Pipeline with GitHub Actions
-
+- The GitAction Pipeline are triggered on push to main and push the image to Dockerhub registry 
 ### Overview
 The CI/CD pipeline automates the process of building, testing, and deploying the application. The pipeline includes the following steps:
 
@@ -160,9 +162,15 @@ jobs:
 
 ---
 
-## Notes
+### Notes
+
 - Replace placeholders like `<repository-url>` and `<repository-directory>` with actual values.
 - Ensure secrets for Docker Hub credentials are added to your GitHub repository settings.
 - MongoDB will run as a container locally and is defined in docker-compose file with document ("books") as diagram
 - You can use mongoDB compass for GUI
 - Can seperate and docker-compose file into two: (backendapi) and (mongoDB) dockerfiles
+
+
+
+
+![image](https://github.com/user-attachments/assets/1956ddc5-26e9-48a4-8e93-8df20f94a850)
