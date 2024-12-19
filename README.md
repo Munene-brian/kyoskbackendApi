@@ -73,7 +73,7 @@ Before you begin, ensure the following tools are installed on your local machine
 
 3. Build the Spring application Docker image for Minikube:
    ```bash
-   docker build -t spring-backend:latest .
+   docker build -t <image_name>:latest .
    ```
 
 #### Deploy Spring Application
@@ -81,7 +81,7 @@ Before you begin, ensure the following tools are installed on your local machine
 
 1. Apply Spring Application Deployment and Service:
    ```bash
-   kubectl apply -f spring-app-deployment.yaml
+   kubectl apply -f <spring_deployment_manifest>.yaml
    ```
 
 #### Access the Application
@@ -163,5 +163,6 @@ jobs:
 ## Notes
 - Replace placeholders like `<repository-url>` and `<repository-directory>` with actual values.
 - Ensure secrets for Docker Hub credentials are added to your GitHub repository settings.
-- MongoDB will run as a container and is defined in docker-compose file with document ("books") as diagram
+- MongoDB will run as a container locally and is defined in docker-compose file with document ("books") as diagram
 - You can use mongoDB compass for GUI
+- Can seperate and docker-compose file into two: (backendapi) and (mongoDB) dockerfiles
