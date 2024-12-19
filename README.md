@@ -18,7 +18,7 @@ Before you begin, ensure the following tools are installed on your local machine
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone <https://github.com/Munene-brian/kyoskbackendApi.git>
    cd kyoskbackendApi
    ```
 
@@ -172,5 +172,5 @@ jobs:
 
 
 
+![Screenshot 2024-12-19 060722](https://github.com/user-attachments/assets/c9bcd285-a402-4d30-b7af-216d98727b0d)
 
-![image](https://github.com/user-attachments/assets/1956ddc5-26e9-48a4-8e93-8df20f94a850)
